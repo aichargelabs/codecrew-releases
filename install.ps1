@@ -1,5 +1,5 @@
 # CodeCrew Windows installer.
-# Usage: powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/aichargelabs/codecrew-releases/main/install.ps1 | iex"
+# Usage: powershell -ExecutionPolicy Bypass -Command "irm https://codecrew.aichargelabs.com/install.ps1 | iex"
 # CODECREW_VERSION: optional version such as 1.0.0; installs tag v1.0.0.
 # CODECREW_DRY_RUN: set to 1 to resolve and print the release without downloading.
 # Generated for aichargelabs/codecrew-releases. Author: aichargelabs.
