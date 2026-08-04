@@ -84,4 +84,4 @@ No package manager IDs are published yet.
 
 Builds are unsigned for now. SHA256 sums will be published as release assets in the future. Verify that downloads come only from this repository's Releases.
 
-CodeCrew is developed by aichargelabs and built on the shoulders of the open-source Wave Terminal project.
+CodeCrew is developed by aichargelabs.
