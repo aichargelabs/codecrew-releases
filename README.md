@@ -23,14 +23,14 @@ macOS and Linux binaries are coming soon. The script exits gracefully until they
 Windows:
 
 ```powershell
-$env:CODECREW_VERSION = "v1.0.0"
+$env:CODECREW_VERSION = "v1.0.1"
 powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/aichargelabs/codecrew-releases/main/install.ps1 | iex"
 ```
 
 macOS / Linux:
 
 ```sh
-CODECREW_VERSION=v1.0.0 curl -fsSL https://raw.githubusercontent.com/aichargelabs/codecrew-releases/main/install.sh | sh
+CODECREW_VERSION=v1.0.1 curl -fsSL https://raw.githubusercontent.com/aichargelabs/codecrew-releases/main/install.sh | sh
 ```
 
 ## Manual download
@@ -39,9 +39,9 @@ See the [latest CodeCrew release](https://github.com/aichargelabs/codecrew-relea
 
 | Name | Platform | Format |
 | --- | --- | --- |
-| [CodeCrew-win32-x64-1.0.0.exe](https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.0/CodeCrew-win32-x64-1.0.0.exe) | Windows x64 | Installer (EXE) |
-| [CodeCrew-win32-x64-1.0.0.msi](https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.0/CodeCrew-win32-x64-1.0.0.msi) | Windows x64 | Installer (MSI) |
-| [CodeCrew-win32-x64-1.0.0.zip](https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.0/CodeCrew-win32-x64-1.0.0.zip) | Windows x64 | Portable archive (ZIP) |
+| [CodeCrew-win32-x64-1.0.1.exe](https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.exe) | Windows x64 | Installer (EXE) |
+| [CodeCrew-win32-x64-1.0.1.msi](https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.msi) | Windows x64 | Installer (MSI) |
+| [CodeCrew-win32-x64-1.0.1.zip](https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.zip) | Windows x64 | Portable archive (ZIP) |
 
 ## What the installer does
 
