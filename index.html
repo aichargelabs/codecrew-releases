@@ -6,134 +6,209 @@
   <meta name="description" content="Download CodeCrew, the agentic code terminal by AiChargeLabs.">
   <meta name="color-scheme" content="dark">
   <title>CodeCrew - Download</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='18' y1='14' x2='50' y2='52' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%238B5CF6'/%3E%3Cstop offset='1' stop-color='%2322D3EE'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='12' fill='%230B0A12'/%3E%3Cpath d='M22 15 L44 32 L22 49' stroke='url(%23g)' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cdefs%3E%3ClinearGradient id='gl' x1='300' y1='220' x2='800' y2='804' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%238B5CF6'/%3E%3Cstop offset='1' stop-color='%2322D3EE'/%3E%3C/linearGradient%3E%3ClinearGradient id='gw' x1='180' y1='300' x2='640' y2='760' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%236D28D9'/%3E%3Cstop offset='1' stop-color='%234C1D95'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1024' height='1024' rx='192' fill='%230A0913'/%3E%3Cg stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M232 300 L392 512 L232 724' stroke='url(%23gw)' stroke-width='96' opacity='0.55'/%3E%3Cpath d='M420 300 L580 512 L420 724' stroke='url(%23gw)' stroke-width='104' opacity='0.8'/%3E%3Cpath d='M608 300 L792 512 L608 724' stroke='url(%23gl)' stroke-width='120'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:#0B0A12; --panel:#14121F; --panel-2:#181529; --line:#272441; --line-bright:#3A3563; --text:#F4F3F9; --muted:#A3A0BC; --dim:#716E8E; --violet:#8B5CF6; --cyan:#22D3EE; --cyan-soft:#67E8F9;
-      --mono:"JetBrains Mono",Consolas,monospace; --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+      --bg:#0A0913; --bg-raise:#100E1C;
+      --term:#0D0B16; --term-bar:#151228; --term-row:#0F0D1A;
+      --line:#232041; --line-bright:#373260;
+      --text:#F2F1F7; --muted:#9C99B5; --dim:#6B6886;
+      --violet:#8B5CF6; --violet-deep:#6D28D9; --cyan:#22D3EE; --cyan-soft:#7DE8F8;
+      --display:'Space Grotesk','Inter',system-ui,sans-serif;
+      --sans:'Inter',system-ui,'Segoe UI',sans-serif;
+      --mono:'JetBrains Mono',Consolas,monospace;
+      --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:104px;
     }
     * { box-sizing:border-box; }
-    html { background:var(--bg); }
-    body { margin:0; min-width:320px; color:var(--text); background:linear-gradient(180deg,#0B0A12 0%,#0B0A12 40%,#14121F 100%); background-attachment:fixed; font-family:var(--sans); line-height:1.5; }
-    a { color:var(--text); text-decoration-color:var(--line-bright); text-underline-offset:4px; }
-    a:hover { color:var(--cyan); text-decoration-color:var(--cyan); }
-    .wrap { width:min(100% - 40px, 920px); margin:0 auto; }
-    header { padding:30px 0 26px; border-bottom:1px solid var(--line); display:flex; align-items:baseline; justify-content:space-between; gap:24px; }
-    .wordmark { font-size:1.05rem; font-weight:750; letter-spacing:-.045em; display:flex; align-items:center; gap:9px; }
-    .mark { flex:0 0 auto; align-self:center; }
-    .cursor { color:var(--violet); margin-left:2px; }
-    .tagline { color:var(--muted); font-size:.78rem; }
-    main { padding:88px 0 110px; }
-    .eyebrow { color:var(--cyan); font:600 .7rem/1 var(--mono); letter-spacing:.12em; text-transform:uppercase; }
-    h1 { max-width:700px; margin:18px 0 16px; font-size:clamp(2.6rem,7vw,5.5rem); line-height:.98; letter-spacing:-.05em; font-weight:700; }
-    .grad { background:linear-gradient(92deg,#8B5CF6 10%,#22D3EE 90%); -webkit-background-clip:text; background-clip:text; color:transparent; }
-    .intro { color:var(--muted); max-width:510px; margin:0 0 44px; font-size:1rem; }
-    .install { border:1px solid var(--line); background:var(--panel); box-shadow:12px 12px 0 #07060D; }
-    .install-head { min-height:54px; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 18px; border-bottom:1px solid var(--line); }
-    .install-title { font:600 .72rem var(--mono); color:var(--text); }
-    .install-state { display:flex; align-items:center; gap:7px; color:var(--muted); font:500 .65rem var(--mono); }
-    .dot { width:6px; height:6px; display:inline-block; background:var(--cyan); border-radius:50%; box-shadow:0 0 10px #22D3EE88; }
-    .commands { padding:24px 20px 20px; display:grid; grid-template-columns:minmax(0,1fr); gap:22px; }
-    .command-label { display:flex; align-items:center; justify-content:space-between; gap:12px; color:var(--muted); font:600 .68rem var(--mono); margin-bottom:8px; }
-    .command { display:flex; align-items:center; gap:14px; min-width:0; padding:16px 14px; border:1px solid var(--line); background:#0F0D18; }
-    .prompt { color:var(--cyan); font:700 .82rem var(--mono); }
-    code { min-width:0; overflow-x:auto; white-space:pre; color:#E9E8F2; font:500 .78rem/1.6 var(--mono); scrollbar-width:thin; }
-    .copy { flex:0 0 auto; border:1px solid var(--line); background:transparent; color:var(--muted); padding:6px 9px; cursor:pointer; font:600 .63rem var(--mono); }
-    .copy:hover, .copy:focus-visible { color:var(--cyan-soft); border-color:var(--cyan); }
-    .copy:focus-visible, a:focus-visible { outline:2px solid var(--cyan); outline-offset:3px; }
-    .note { margin:9px 0 0 2px; color:var(--muted); font-size:.72rem; }
-    section { margin-top:68px; }
-    h2 { font-size:1rem; letter-spacing:-.025em; margin:0 0 16px; }
-    .version { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:20px 0; display:flex; align-items:center; justify-content:space-between; gap:24px; }
-    .version p { color:var(--muted); margin:0; font-size:.82rem; }
-    .version code { color:var(--cyan); font-size:.8rem; }
-    .shells { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; color:var(--dim); font:500 .67rem var(--mono); }
-    .shells code { color:var(--cyan); }
-    .downloads { display:grid; grid-template-columns:1fr auto; gap:12px 24px; align-items:center; }
-    .download-link { color:var(--text); font:500 .8rem var(--mono); text-decoration:none; }
-    .download-link span { color:var(--dim); }
-    .download-link:hover span { color:var(--cyan); }
-    .release { color:var(--cyan); font-size:.75rem; }
-    .checks { grid-column:1 / -1; padding-top:8px; color:var(--dim); font-size:.72rem; }
-    footer { border-top:1px solid var(--line); padding:28px 0 38px; color:var(--muted); font-size:.72rem; display:flex; justify-content:space-between; gap:24px; }
-    footer p { margin:0; max-width:610px; }
-    .unsigned { color:var(--dim); text-align:right; }
-    @media (max-width:640px) {
-      .wrap { width:min(100% - 28px, 920px); }
-      header { display:block; padding:22px 0; }
-      .tagline { display:block; margin-top:8px; font-size:.72rem; }
-      main { padding:60px 0 78px; }
-      h1 { font-size:clamp(2.7rem,14vw,4.2rem); }
-      .install-head { padding:0 14px; }
-      .commands { padding:20px 14px 16px; }
-      .command { align-items:flex-start; padding:13px 10px; gap:9px; }
-      .command code { font-size:.7rem; }
-      .copy { margin-left:auto; }
-      .version { display:block; }
-      .shells { justify-content:flex-start; margin-top:13px; }
-      .downloads { display:block; }
-      .download-link { display:block; padding:8px 0; }
-      .release { display:block; margin-bottom:10px; }
-      .checks { margin-top:12px; }
-      footer { display:block; }
-      .unsigned { margin-top:15px; text-align:left; }
+    html { background:var(--bg); scroll-behavior:smooth; overflow-x:clip; }
+    body { margin:0; min-width:320px; color:var(--text); background:var(--bg); font:400 1rem/1.55 var(--sans); overflow-x:clip; }
+    a { color:var(--text); text-decoration:none; }
+    a:focus-visible, button:focus-visible { outline:2px solid var(--cyan); outline-offset:3px; }
+    .wrap { width:min(100% - 48px, 1060px); margin:0 auto; }
+
+    /* header */
+    header { border-bottom:1px solid var(--line); }
+    .bar { display:flex; align-items:center; justify-content:space-between; gap:var(--s3); padding:22px 0; }
+    .wordmark { display:flex; align-items:center; gap:10px; font:700 1.1rem/1 var(--display); letter-spacing:-.02em; }
+    .wordmark .cursor { display:inline-block; width:9px; height:19px; margin-left:2px; background:linear-gradient(180deg,var(--violet),var(--cyan)); animation:blink 1.2s steps(1) infinite; }
+    @keyframes blink { 50% { opacity:0; } }
+    .bar nav { display:flex; gap:var(--s3); font:600 .78rem var(--mono); }
+    .bar nav a { color:var(--muted); }
+    .bar nav a:hover { color:var(--cyan-soft); }
+
+    /* hero */
+    .hero { position:relative; padding:var(--s6) 0 var(--s5); }
+    .hero-mark { position:absolute; right:-40px; top:44px; width:380px; height:380px; pointer-events:none; opacity:.9; filter:drop-shadow(0 0 64px rgba(139,92,246,.35)) drop-shadow(0 0 120px rgba(34,211,238,.18)); }
+    .eyebrow { font:600 .72rem/1 var(--mono); letter-spacing:.16em; text-transform:uppercase; color:var(--cyan); }
+    h1 { margin:var(--s2) 0 0; font:700 clamp(3rem,7.2vw,5.4rem)/1.02 var(--display); letter-spacing:-.03em; max-width:640px; }
+    h1 .grad { background:linear-gradient(92deg,var(--violet) 5%,var(--cyan) 85%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .intro { margin:var(--s3) 0 0; max-width:480px; color:var(--muted); font-size:1.05rem; }
+
+    /* terminal (signature) */
+    .terminal { margin-top:var(--s4); border:1px solid var(--line-bright); border-radius:10px; background:var(--term); box-shadow:0 24px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(139,92,246,.06), 0 0 90px rgba(109,40,217,.12); overflow:hidden; }
+    .term-bar { display:flex; align-items:center; gap:var(--s2); padding:12px 18px; background:var(--term-bar); border-bottom:1px solid var(--line); }
+    .lights { display:flex; gap:7px; }
+    .lights i { width:11px; height:11px; border-radius:50%; }
+    .lights i:nth-child(1) { background:var(--violet-deep); }
+    .lights i:nth-child(2) { background:var(--violet); }
+    .lights i:nth-child(3) { background:var(--cyan); }
+    .term-title { flex:1; text-align:center; font:600 .74rem var(--mono); color:var(--muted); }
+    .term-ver { margin-left:auto; font:600 .7rem var(--mono); color:var(--cyan); display:flex; align-items:center; gap:7px; }
+    .term-ver::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan); }
+    .term-body { padding:var(--s3) 0 var(--s2); }
+    .term-line { display:grid; grid-template-columns:56px minmax(0,1fr) auto; align-items:center; gap:var(--s2); padding:12px 20px 12px 0; }
+    .term-line + .term-line { border-top:1px solid var(--term-row); }
+    .chev { justify-self:center; flex:0 0 auto; }
+    .os-label { grid-column:2 / 4; padding:0 20px 0 0; font:600 .68rem var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--dim); }
+    .term-line code { min-width:0; overflow-x:auto; white-space:pre; font:600 .85rem/1.7 var(--mono); color:var(--text); scrollbar-width:thin; }
+    .term-line code .u { color:var(--cyan-soft); }
+    .copy { border:1px solid var(--line-bright); border-radius:6px; background:transparent; color:var(--muted); padding:7px 12px; cursor:pointer; font:600 .66rem var(--mono); letter-spacing:.06em; transition:color .15s, border-color .15s; }
+    .copy:hover { color:var(--cyan-soft); border-color:var(--cyan); }
+    .term-note { margin:var(--s1) 0 var(--s1); padding:8px 20px 8px 56px; font:400 .78rem var(--mono); color:var(--dim); }
+    .term-note b { color:var(--muted); font-weight:600; }
+
+    /* lower grid */
+    .lower { display:grid; grid-template-columns:1fr 1fr; gap:var(--s4) var(--s5); padding:var(--s5) 0 var(--s6); }
+    .cell h2 { margin:0 0 6px; font:700 1.25rem var(--display); letter-spacing:-.015em; }
+    .cell .sub { margin:0 0 var(--s3); color:var(--dim); font-size:.86rem; }
+    .kv { border-top:1px solid var(--line); }
+    .kv > div { display:flex; align-items:baseline; justify-content:space-between; gap:var(--s2); padding:13px 2px; border-bottom:1px solid var(--line); }
+    .kv .k { color:var(--muted); font-size:.85rem; white-space:nowrap; }
+    .kv code { font:600 .8rem var(--mono); color:var(--cyan-soft); overflow-x:auto; white-space:pre; scrollbar-width:thin; max-width:60%; }
+    .dl { border-top:1px solid var(--line); }
+    .dl a { display:flex; align-items:baseline; justify-content:space-between; gap:var(--s2); padding:13px 2px; border-bottom:1px solid var(--line); font:600 .8rem var(--mono); }
+    .dl a .fmt { color:var(--text); }
+    .dl a .file { color:var(--dim); font-weight:400; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .dl a:hover .fmt, .dl a:hover .file { color:var(--cyan-soft); }
+    .aux { display:flex; justify-content:space-between; gap:var(--s2); margin-top:var(--s2); font-size:.78rem; color:var(--dim); }
+    .aux a { color:var(--muted); font:600 .74rem var(--mono); white-space:nowrap; }
+    .aux a:hover { color:var(--cyan-soft); }
+
+    /* footer */
+    footer { border-top:1px solid var(--line); padding:var(--s3) 0 var(--s4); }
+    .foot { display:flex; align-items:baseline; justify-content:space-between; gap:var(--s3); color:var(--dim); font-size:.78rem; }
+    .foot a { color:var(--muted); border-bottom:1px solid var(--line-bright); }
+    .foot a:hover { color:var(--cyan-soft); border-color:var(--cyan); }
+
+    @media (max-width:860px) {
+      .hero { padding:var(--s5) 0 var(--s4); }
+      .hero-mark { width:230px; height:230px; right:-56px; top:-10px; opacity:.32; }
+      .lower { grid-template-columns:1fr; gap:var(--s4); padding:var(--s4) 0 var(--s5); }
     }
-    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+    @media (max-width:640px) {
+      .wrap { width:min(100% - 32px, 1060px); }
+      .bar nav { gap:var(--s2); }
+      h1 { font-size:clamp(2.6rem,13vw,3.6rem); }
+      .term-line { grid-template-columns:40px minmax(0,1fr); gap:10px; padding-right:14px; }
+      .term-line .copy { grid-column:2; justify-self:start; }
+      .os-label { grid-column:2 / 3; }
+      .term-note { padding-left:40px; }
+      .term-title { display:none; }
+      .kv > div { flex-direction:column; align-items:flex-start; gap:4px; }
+      .kv code { max-width:100%; }
+      .foot { flex-direction:column; gap:10px; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      .wordmark .cursor { animation:none; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="wordmark"><svg class="mark" width="20" height="20" viewBox="0 0 1024 1024" fill="none" aria-hidden="true"><defs><linearGradient id="markGrad" x1="280" y1="200" x2="820" y2="824" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs><path d="M330 210 L700 512 L330 814" stroke="url(#markGrad)" stroke-width="210" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>CodeCrew<span class="cursor">▍</span></div>
-      <div class="tagline">The agentic code terminal by AiChargeLabs.</div>
-    </header>
+  <header>
+    <div class="wrap bar">
+      <div class="wordmark">
+        <svg width="26" height="26" viewBox="0 0 1024 1024" fill="none" aria-hidden="true"><defs><linearGradient id="wmLead" x1="300" y1="220" x2="800" y2="804" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#22D3EE"/></linearGradient><linearGradient id="wmWing" x1="180" y1="300" x2="640" y2="760" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6D28D9"/><stop offset="1" stop-color="#4C1D95"/></linearGradient></defs><g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M232 300 L392 512 L232 724" stroke="url(#wmWing)" stroke-width="96" opacity="0.55"/><path d="M420 300 L580 512 L420 724" stroke="url(#wmWing)" stroke-width="104" opacity="0.8"/><path d="M608 300 L792 512 L608 724" stroke="url(#wmLead)" stroke-width="120"/></g></svg>
+        CodeCrew<span class="cursor" aria-hidden="true"></span>
+      </div>
+      <nav>
+        <a href="https://github.com/aichargelabs/codecrew-releases/releases/latest">releases</a>
+        <a href="https://aichargelabs.com">aichargelabs</a>
+      </nav>
+    </div>
+  </header>
 
-    <main>
-      <div class="eyebrow">Get started</div>
+  <main>
+    <section class="wrap hero">
+      <svg class="hero-mark" viewBox="0 0 1024 1024" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="hLead" x1="300" y1="220" x2="800" y2="804" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+          <linearGradient id="hWing" x1="180" y1="300" x2="640" y2="760" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6D28D9"/><stop offset="1" stop-color="#4C1D95"/></linearGradient>
+        </defs>
+        <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <path d="M232 300 L392 512 L232 724" stroke="url(#hWing)" stroke-width="96" opacity="0.55"/>
+          <path d="M420 300 L580 512 L420 724" stroke="url(#hWing)" stroke-width="104" opacity="0.8"/>
+          <path d="M608 300 L792 512 L608 724" stroke="url(#hLead)" stroke-width="120"/>
+        </g>
+      </svg>
+
+      <p class="eyebrow">Agentic code terminal</p>
       <h1>Your terminal.<br><span class="grad">With a crew.</span></h1>
-      <p class="intro">CodeCrew brings agentic coding into the command line. Install the latest published build and start working.</p>
+      <p class="intro">CodeCrew brings agentic coding into the command line. Run one command and start working with a crew in your terminal.</p>
 
-      <div class="install">
-        <div class="install-head"><div class="install-title">INSTALL_CODECREW</div><div class="install-state"><span class="dot"></span>stable / v1.0.1</div></div>
-        <div class="commands">
-          <div>
-            <div class="command-label"><span>Windows / PowerShell</span><span>01</span></div>
-            <div class="command"><span class="prompt">&gt;</span><code>irm https://codecrew.aichargelabs.com/install.ps1 | iex</code><button class="copy" type="button" data-copy="irm https://codecrew.aichargelabs.com/install.ps1 | iex">COPY</button></div>
+      <div class="terminal">
+        <div class="term-bar">
+          <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="term-title">install — codecrew</span>
+          <span class="term-ver">stable v1.0.1</span>
+        </div>
+        <div class="term-body">
+          <div class="term-line">
+            <span class="os-label">Windows · PowerShell</span>
           </div>
-          <div>
-            <div class="command-label"><span>macOS / Linux</span><span>02</span></div>
-            <div class="command"><span class="prompt">$</span><code>curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh</code><button class="copy" type="button" data-copy="curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh">COPY</button></div>
-            <p class="note">macOS and Linux builds are coming soon - the script tells you if your platform is not published yet.</p>
+          <div class="term-line">
+            <svg class="chev" width="16" height="16" viewBox="0 0 1024 1024" fill="none" aria-hidden="true"><path d="M330 210 L700 512 L330 814" stroke="#8B5CF6" stroke-width="210" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/></svg>
+            <code>irm <span class="u">https://codecrew.aichargelabs.com/install.ps1</span> | iex</code>
+            <button class="copy" type="button" data-copy="irm https://codecrew.aichargelabs.com/install.ps1 | iex">COPY</button>
           </div>
+          <div class="term-line">
+            <span class="os-label">macOS / Linux</span>
+          </div>
+          <div class="term-line">
+            <svg class="chev" width="16" height="16" viewBox="0 0 1024 1024" fill="none" aria-hidden="true"><defs><linearGradient id="cl" x1="280" y1="200" x2="820" y2="824" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs><path d="M330 210 L700 512 L330 814" stroke="url(#cl)" stroke-width="210" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            <code>curl -fsSL <span class="u">https://codecrew.aichargelabs.com/install.sh</span> | sh</code>
+            <button class="copy" type="button" data-copy="curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh">COPY</button>
+          </div>
+          <p class="term-note"><b>note:</b> macOS and Linux builds are coming soon — the script tells you if your platform is not published yet.</p>
         </div>
       </div>
+    </section>
 
-      <section aria-labelledby="version-title">
-        <div class="eyebrow">Keep it predictable</div>
-        <h2 id="version-title">Pin a version</h2>
-        <div class="version"><p>Set <code>CODECREW_VERSION=1.0.1</code> before running the installer.</p><div class="shells"><span>PowerShell: <code>$env:CODECREW_VERSION="1.0.1"</code></span><span>sh: <code>CODECREW_VERSION=1.0.1</code></span></div></div>
-      </section>
-
-      <section aria-labelledby="downloads-title">
-        <div class="eyebrow">For the hands-on install</div>
-        <h2 id="downloads-title">Manual downloads</h2>
-        <div class="downloads">
-          <a class="download-link" href="https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.exe">EXE <span>/ CodeCrew-win32-x64-1.0.1.exe</span></a>
-          <a class="download-link release" href="https://github.com/aichargelabs/codecrew-releases/releases/latest">All releases -&gt;</a>
-          <a class="download-link" href="https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.msi">MSI <span>/ CodeCrew-win32-x64-1.0.1.msi</span></a>
-          <span></span>
-          <a class="download-link" href="https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.zip">ZIP <span>/ CodeCrew-win32-x64-1.0.1.zip</span></a>
-          <span></span>
-          <div class="checks">SHA256SUMS.txt is published alongside every release.</div>
+    <section class="wrap lower">
+      <div class="cell">
+        <h2>Pin a version</h2>
+        <p class="sub">Set the variable before running the installer.</p>
+        <div class="kv">
+          <div><span class="k">PowerShell</span><code>$env:CODECREW_VERSION="1.0.1"</code></div>
+          <div><span class="k">sh</span><code>CODECREW_VERSION=1.0.1</code></div>
         </div>
-      </section>
-    </main>
+      </div>
+      <div class="cell">
+        <h2>Manual downloads</h2>
+        <p class="sub">Windows x64, v1.0.1.</p>
+        <div class="dl">
+          <a href="https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.exe"><span class="fmt">EXE</span><span class="file">CodeCrew-win32-x64-1.0.1.exe</span></a>
+          <a href="https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.msi"><span class="fmt">MSI</span><span class="file">CodeCrew-win32-x64-1.0.1.msi</span></a>
+          <a href="https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.zip"><span class="fmt">ZIP</span><span class="file">CodeCrew-win32-x64-1.0.1.zip</span></a>
+        </div>
+        <div class="aux">
+          <span>SHA256SUMS.txt ships with every release.</span>
+          <a href="https://github.com/aichargelabs/codecrew-releases/releases/latest">All releases -&gt;</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <footer>
-      <p>CodeCrew is developed by <a href="https://aichargelabs.com">AiChargeLabs</a>. Built on the shoulders of the open-source Wave Terminal project.</p>
-      <p class="unsigned">Windows builds are unsigned. SmartScreen may ask you to confirm the install.</p>
-    </footer>
-  </div>
+  <footer>
+    <div class="wrap foot">
+      <span>CodeCrew is an <a href="https://aichargelabs.com">AiChargeLabs</a> product.</span>
+      <span>Windows builds are unsigned — SmartScreen may ask you to confirm the install.</span>
+    </div>
+  </footer>
+
   <script>
     document.querySelectorAll('[data-copy]').forEach(function (button) {
       button.addEventListener('click', function () {
