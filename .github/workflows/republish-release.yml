@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Capture release metadata and assets
         run: |
-          gh release view "$TAG" -R "$REPO" --json name,body,isPrerelease,isLatest > meta.json
+          gh release view "$TAG" -R "$REPO" --json name,body,isPrerelease > meta.json
           jq -r .body meta.json > notes.md
           mkdir assets && cd assets
           gh release download "$TAG" -R "$REPO" --pattern "*"
