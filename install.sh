@@ -1,6 +1,6 @@
 #!/bin/sh
 # CodeCrew installer
-# Usage: curl -fsSL https://raw.githubusercontent.com/aichargelabs/codecrew-releases/main/install.sh | sh
+# Usage: curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh
 # Env: CODECREW_VERSION=1.0.0, CODECREW_DRY_RUN=1
 # Flag: --dry-run
 # Author: aichargelabs

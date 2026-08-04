@@ -7,13 +7,13 @@ Agentic code terminal by aichargelabs.
 ### Windows (PowerShell)
 
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/aichargelabs/codecrew-releases/main/install.ps1 | iex"
+powershell -ExecutionPolicy Bypass -Command "irm https://codecrew.aichargelabs.com/install.ps1 | iex"
 ```
 
 ### macOS / Linux
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/aichargelabs/codecrew-releases/main/install.sh | sh
+curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh
 ```
 
 macOS and Linux binaries are coming soon. The script exits gracefully until they are published.
@@ -24,13 +24,13 @@ Windows:
 
 ```powershell
 $env:CODECREW_VERSION = "v1.0.1"
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/aichargelabs/codecrew-releases/main/install.ps1 | iex"
+powershell -ExecutionPolicy Bypass -Command "irm https://codecrew.aichargelabs.com/install.ps1 | iex"
 ```
 
 macOS / Linux:
 
 ```sh
-CODECREW_VERSION=v1.0.1 curl -fsSL https://raw.githubusercontent.com/aichargelabs/codecrew-releases/main/install.sh | sh
+CODECREW_VERSION=v1.0.1 curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh
 ```
 
 ## Manual download
