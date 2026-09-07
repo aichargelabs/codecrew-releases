@@ -94,7 +94,7 @@ if [ "$os_name" = "darwin" ]; then
 else
     asset=codecrew-linux-$arch-$version.AppImage
 fi
-download_url=$(grep '"browser_download_url"' "$release_json" | grep -F "\"$asset\"" | sed -n '1s/.*"browser_download_url"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' || true)
+download_url=$(grep '"browser_download_url"' "$release_json" | grep -F "/$asset\"" | sed -n '1s/.*"browser_download_url"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' || true)
 
 printf '%s\n' "==> CodeCrew version: $version"
 if [ -z "$download_url" ]; then
