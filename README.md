@@ -16,21 +16,21 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://codecre
 curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh
 ```
 
-macOS and Linux binaries are coming soon. The script exits gracefully until they are published.
+macOS builds are published for Apple silicon (arm64). Linux binaries are not published yet; the script exits gracefully on Linux.
 
 ## Pin a version
 
 Windows:
 
 ```powershell
-$env:CODECREW_VERSION = "v1.0.1"
+$env:CODECREW_VERSION = "v2.1.0"
 powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://codecrew.aichargelabs.com/install.ps1)"
 ```
 
 macOS / Linux:
 
 ```sh
-CODECREW_VERSION=v1.0.1 curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh
+CODECREW_VERSION=v2.1.0 curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh
 ```
 
 ## Manual download
@@ -39,9 +39,11 @@ See the [latest CodeCrew release](https://github.com/aichargelabs/codecrew-relea
 
 | Name | Platform | Format |
 | --- | --- | --- |
-| [CodeCrew-win32-x64-1.0.1.exe](https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.exe) | Windows x64 | Installer (EXE) |
-| [CodeCrew-win32-x64-1.0.1.msi](https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.msi) | Windows x64 | Installer (MSI) |
-| [CodeCrew-win32-x64-1.0.1.zip](https://github.com/aichargelabs/codecrew-releases/releases/download/v1.0.1/CodeCrew-win32-x64-1.0.1.zip) | Windows x64 | Portable archive (ZIP) |
+| [CodeCrew-win32-x64-2.1.0.exe](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.1.0/CodeCrew-win32-x64-2.1.0.exe) | Windows x64 | Installer (EXE) |
+| [CodeCrew-win32-x64-2.1.0.msi](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.1.0/CodeCrew-win32-x64-2.1.0.msi) | Windows x64 | Installer (MSI) |
+| [CodeCrew-win32-x64-2.1.0.zip](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.1.0/CodeCrew-win32-x64-2.1.0.zip) | Windows x64 | Portable archive (ZIP) |
+| [CodeCrew-darwin-arm64-2.1.0.dmg](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.1.0/CodeCrew-darwin-arm64-2.1.0.dmg) | macOS arm64 | Disk image (DMG) |
+| [CodeCrew-darwin-arm64-2.1.0.zip](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.1.0/CodeCrew-darwin-arm64-2.1.0.zip) | macOS arm64 | Portable archive (ZIP) |
 
 ## What the installer does
 
@@ -54,7 +56,7 @@ Windows:
 
 macOS:
 
-- Downloads the latest matching release when macOS builds are available.
+- Downloads the latest matching release for Apple silicon (arm64).
 - Copies CodeCrew.app to `/Applications`.
 - Does not install telemetry.
 - Does not request administrator access unless macOS requires it.
@@ -82,6 +84,6 @@ No package manager IDs are published yet.
 
 ## Security
 
-Builds are unsigned for now. SHA256 sums will be published as release assets in the future. Verify that downloads come only from this repository's Releases.
+Builds are unsigned for now. On macOS, right-click the app and choose Open the first time. Every release publishes a `SHA256SUMS.txt` asset; verify your download against it, and only download from this repository's Releases.
 
 CodeCrew is developed by aichargelabs.
