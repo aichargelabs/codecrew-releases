@@ -7,7 +7,7 @@ Agentic code terminal by aichargelabs.
 ### Windows (PowerShell)
 
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "irm https://codecrew.aichargelabs.com/install.ps1 | iex"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://codecrew.aichargelabs.com/install.ps1)"
 ```
 
 ### macOS / Linux
@@ -24,7 +24,7 @@ Windows:
 
 ```powershell
 $env:CODECREW_VERSION = "v1.0.1"
-powershell -ExecutionPolicy Bypass -Command "irm https://codecrew.aichargelabs.com/install.ps1 | iex"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://codecrew.aichargelabs.com/install.ps1)"
 ```
 
 macOS / Linux:
