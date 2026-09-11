@@ -40,16 +40,28 @@ case "$machine" in
     *) printf '%s\n' "Error: unsupported architecture: $machine (supported: x86_64, arm64, aarch64)" >&2; exit 1 ;;
 esac
 
+if [ "$os_name" = "darwin" ]; then
+    asset_prefix=CodeCrew-darwin-$arch-
+    asset_suffix=.dmg
+else
+    asset_prefix=codecrew-linux-$arch-
+    asset_suffix=.AppImage
+fi
+
 requested_version=${CODECREW_VERSION-}
 if [ -n "$requested_version" ]; then
     case "$requested_version" in
         v*) tag=$requested_version ;;
         *) tag=v$requested_version ;;
     esac
+    allow_prerelease=1
     api_url=https://api.github.com/repos/aichargelabs/codecrew-releases/releases/tags/$tag
 else
     tag=latest
-    api_url=https://api.github.com/repos/aichargelabs/codecrew-releases/releases/latest
+    allow_prerelease=0
+    # Releases are published per platform, so the newest one can carry only Windows
+    # assets and /releases/latest cannot answer "newest build for this platform".
+    api_url="https://api.github.com/repos/aichargelabs/codecrew-releases/releases?per_page=30"
 fi
 
 if command -v curl >/dev/null 2>&1; then
@@ -83,21 +95,35 @@ if ! $fetch "$api_url" >"$release_json"; then
     exit 1
 fi
 
-tag=$(grep '"tag_name"' "$release_json" | sed -n '1s/.*"tag_name"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
-if [ -z "$tag" ]; then
-    printf '%s\n' "Error: GitHub returned a release without a tag." >&2
-    exit 1
-fi
-version=${tag#v}
-if [ "$os_name" = "darwin" ]; then
-    asset=CodeCrew-darwin-$arch-$version.dmg
-else
-    asset=codecrew-linux-$arch-$version.AppImage
-fi
-download_url=$(grep '"browser_download_url"' "$release_json" | grep -F "/$asset\"" | sed -n '1s/.*"browser_download_url"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' || true)
+# One key per line whether GitHub sent pretty or compact JSON. In each release object
+# tag_name and prerelease precede assets, so the first matching asset URL belongs to the
+# newest release that has a build for this platform.
+resolved=$(tr ',' '\n' <"$release_json" | awk -v prefix="$asset_prefix" -v suffix="$asset_suffix" -v allow_pre="$allow_prerelease" '
+    /"tag_name"[ \t]*:/ {
+        tag = $0
+        sub(/.*"tag_name"[ \t]*:[ \t]*"/, "", tag)
+        sub(/".*/, "", tag)
+        pre = 0
+        next
+    }
+    /"prerelease"[ \t]*:[ \t]*true/ { pre = 1; next }
+    /"browser_download_url"[ \t]*:/ {
+        if (tag == "" || (pre && allow_pre != 1)) next
+        version = tag
+        sub(/^v/, "", version)
+        if (index($0, "/" prefix version suffix "\"") == 0) next
+        url = $0
+        sub(/.*"browser_download_url"[ \t]*:[ \t]*"/, "", url)
+        sub(/".*/, "", url)
+        print tag " " url
+        exit
+    }
+' || true)
 
-printf '%s\n' "==> CodeCrew version: $version"
-if [ -z "$download_url" ]; then
+if [ -z "$resolved" ]; then
+    version=${tag#v}
+    asset=$asset_prefix$version$asset_suffix
+    printf '%s\n' "==> CodeCrew version: $version"
     if [ "$dry_run" -eq 1 ]; then
         printf '%s\n' "==> asset not yet published: $asset"
         exit 0
@@ -105,6 +131,12 @@ if [ -z "$download_url" ]; then
     printf '%s\n' "CodeCrew builds for $os_name/$arch are coming soon; watch https://github.com/aichargelabs/codecrew-releases/releases" >&2
     exit 1
 fi
+tag=${resolved%% *}
+download_url=${resolved#* }
+version=${tag#v}
+asset=$asset_prefix$version$asset_suffix
+
+printf '%s\n' "==> CodeCrew version: $version"
 printf '%s\n' "==> Download URL: $download_url"
 if [ "$dry_run" -eq 1 ]; then
     exit 0
