@@ -104,11 +104,13 @@ resolved=$(tr ',' '\n' <"$release_json" | awk -v prefix="$asset_prefix" -v suffi
         sub(/.*"tag_name"[ \t]*:[ \t]*"/, "", tag)
         sub(/".*/, "", tag)
         pre = 0
+        draft = 0
         next
     }
+    /"draft"[ \t]*:[ \t]*true/ { draft = 1; next }
     /"prerelease"[ \t]*:[ \t]*true/ { pre = 1; next }
     /"browser_download_url"[ \t]*:/ {
-        if (tag == "" || (pre && allow_pre != 1)) next
+        if (tag == "" || draft || (pre && allow_pre != 1)) next
         version = tag
         sub(/^v/, "", version)
         if (index($0, "/" prefix version suffix "\"") == 0) next
