@@ -13,16 +13,31 @@ function Install-CodeCrew {
 
         $headers = @{ 'User-Agent' = 'codecrew-installer' }
         $requestedVersion = $env:CODECREW_VERSION
+
+        Write-Host 'Resolving CodeCrew release...'
         if ([string]::IsNullOrWhiteSpace($requestedVersion)) {
-            $releaseUrl = 'https://api.github.com/repos/aichargelabs/codecrew-releases/releases/latest'
+            # Releases are published per platform, so the newest one can carry only macOS
+            # assets and /releases/latest cannot answer "newest Windows build". Walk the
+            # list newest-first and take the first full release that has the installer.
+            $releases = Invoke-RestMethod -Uri 'https://api.github.com/repos/aichargelabs/codecrew-releases/releases?per_page=30' -Headers $headers -Method Get
+            $release = $null
+            foreach ($candidate in @($releases)) {
+                if ($candidate.draft -or $candidate.prerelease) { continue }
+                $candidateAsset = 'CodeCrew-win32-x64-' + (([string]$candidate.tag_name) -replace '^v', '') + '.exe'
+                if (@($candidate.assets) | Where-Object { $_.name -ceq $candidateAsset }) {
+                    $release = $candidate
+                    break
+                }
+            }
+            if ($null -eq $release) {
+                throw 'No published CodeCrew release includes a Windows x64 installer. See https://github.com/aichargelabs/codecrew-releases/releases'
+            }
         }
         else {
             $requestedVersion = $requestedVersion.Trim()
             $releaseUrl = 'https://api.github.com/repos/aichargelabs/codecrew-releases/releases/tags/v' + $requestedVersion
+            $release = Invoke-RestMethod -Uri $releaseUrl -Headers $headers -Method Get
         }
-
-        Write-Host 'Resolving CodeCrew release...'
-        $release = Invoke-RestMethod -Uri $releaseUrl -Headers $headers -Method Get
         $tagName = [string]$release.tag_name
         if ([string]::IsNullOrWhiteSpace($tagName)) {
             throw 'The release response did not include a tag name.'
