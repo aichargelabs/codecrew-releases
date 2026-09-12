@@ -23,14 +23,14 @@ macOS builds are published for Apple silicon (arm64). Linux binaries are not pub
 Windows:
 
 ```powershell
-$env:CODECREW_VERSION = "v2.1.0"
+$env:CODECREW_VERSION = "v2.5.0"
 powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://codecrew.aichargelabs.com/install.ps1)"
 ```
 
 macOS / Linux:
 
 ```sh
-CODECREW_VERSION=v2.1.0 curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh
+CODECREW_VERSION=v2.5.0 curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh
 ```
 
 ## Manual download
@@ -39,11 +39,11 @@ See the [latest CodeCrew release](https://github.com/aichargelabs/codecrew-relea
 
 | Name | Platform | Format |
 | --- | --- | --- |
-| [CodeCrew-win32-x64-2.1.0.exe](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.1.0/CodeCrew-win32-x64-2.1.0.exe) | Windows x64 | Installer (EXE) |
-| [CodeCrew-win32-x64-2.1.0.msi](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.1.0/CodeCrew-win32-x64-2.1.0.msi) | Windows x64 | Installer (MSI) |
-| [CodeCrew-win32-x64-2.1.0.zip](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.1.0/CodeCrew-win32-x64-2.1.0.zip) | Windows x64 | Portable archive (ZIP) |
-| [CodeCrew-darwin-arm64-2.1.0.dmg](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.1.0/CodeCrew-darwin-arm64-2.1.0.dmg) | macOS arm64 | Disk image (DMG) |
-| [CodeCrew-darwin-arm64-2.1.0.zip](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.1.0/CodeCrew-darwin-arm64-2.1.0.zip) | macOS arm64 | Portable archive (ZIP) |
+| [CodeCrew-win32-x64-2.5.0.exe](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.5.0/CodeCrew-win32-x64-2.5.0.exe) | Windows x64 | Installer (EXE) |
+| [CodeCrew-win32-x64-2.5.0.msi](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.5.0/CodeCrew-win32-x64-2.5.0.msi) | Windows x64 | Installer (MSI) |
+| [CodeCrew-win32-x64-2.5.0.zip](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.5.0/CodeCrew-win32-x64-2.5.0.zip) | Windows x64 | Portable archive (ZIP) |
+| [CodeCrew-darwin-arm64-2.5.0.dmg](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.5.0/CodeCrew-darwin-arm64-2.5.0.dmg) | macOS arm64 | Disk image (DMG) |
+| [CodeCrew-darwin-arm64-2.5.0.zip](https://github.com/aichargelabs/codecrew-releases/releases/download/v2.5.0/CodeCrew-darwin-arm64-2.5.0.zip) | macOS arm64 | Portable archive (ZIP) |
 
 ## What the installer does
 
