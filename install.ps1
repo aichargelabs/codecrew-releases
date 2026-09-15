@@ -34,7 +34,7 @@ function Install-CodeCrew {
             }
         }
         else {
-            $requestedVersion = $requestedVersion.Trim()
+            $requestedVersion = $requestedVersion.Trim() -replace '^v', ''
             $releaseUrl = 'https://api.github.com/repos/aichargelabs/codecrew-releases/releases/tags/v' + $requestedVersion
             $release = Invoke-RestMethod -Uri $releaseUrl -Headers $headers -Method Get
         }
@@ -72,7 +72,9 @@ function Install-CodeCrew {
             return
         }
 
-        $downloadDirectory = Join-Path $env:TEMP 'codecrew-install'
+        # Per-run directory: a fixed path collides when two installs overlap (the first
+        # installer still holds the file open while the second tries to overwrite it).
+        $downloadDirectory = Join-Path (Join-Path $env:TEMP 'codecrew-install') ([guid]::NewGuid().ToString('N'))
         New-Item -ItemType Directory -Path $downloadDirectory -Force | Out-Null
         $installerPath = Join-Path $downloadDirectory $assetName
 
@@ -97,7 +99,7 @@ function Install-CodeCrew {
         else {
             Write-Host ('Install completed. Expected per-user location: ' + $installLocation)
         }
-        Remove-Item -LiteralPath $installerPath -Force
+        Remove-Item -LiteralPath $downloadDirectory -Recurse -Force
         Write-Host 'CodeCrew installed successfully.'
         Write-Host 'Launch it from the Start Menu: CodeCrew'
     }
