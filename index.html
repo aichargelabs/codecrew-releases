@@ -189,7 +189,14 @@
         </div>
       </div>
       <div class="os">
-        <h3>Windows PowerShell</h3>
+        <h3>Windows — Command Prompt or PowerShell (bypasses execution policy)</h3>
+        <div class="cmd">
+          <code>powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm <span class="u">https://codecrew.aichargelabs.com/install.ps1</span>)"</code>
+          <button class="copy" type="button" data-copy="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;iex (irm https://codecrew.aichargelabs.com/install.ps1)&quot;">COPY</button>
+        </div>
+      </div>
+      <div class="os">
+        <h3>Windows — already inside PowerShell</h3>
         <div class="cmd">
           <code>irm <span class="u">https://codecrew.aichargelabs.com/install.ps1</span> | iex</code>
           <button class="copy" type="button" data-copy="irm https://codecrew.aichargelabs.com/install.ps1 | iex">COPY</button>
@@ -201,6 +208,7 @@
         <a href="https://github.com/aichargelabs/codecrew-releases/releases/download/v2.6.0/CodeCrew-win32-x64-2.6.0.exe">Windows installer</a>,
         or <a href="https://github.com/aichargelabs/codecrew-releases/releases/latest">all release assets</a>.
         Pin a version with <code style="font:600 .85em var(--mono)">CODECREW_VERSION</code>; dry-run with <code style="font:600 .85em var(--mono)">CODECREW_DRY_RUN=1</code>.
+        PowerShell has no <code style="font:600 .85em var(--mono)">VAR=value command</code> form — set <code style="font:600 .85em var(--mono)">$env:CODECREW_VERSION='2.6.0'</code> on its own line first.
       </p>
     </div>
   </section>
