@@ -1,7 +1,7 @@
 #!/bin/sh
 # CodeCrew installer
 # Usage: curl -fsSL https://codecrew.aichargelabs.com/install.sh | sh
-# Env: CODECREW_VERSION=1.0.0, CODECREW_DRY_RUN=1
+# Env: CODECREW_INSTALL_VERSION=1.0.0 (or CODECREW_VERSION outside a CodeCrew terminal), CODECREW_DRY_RUN=1
 # Flag: --dry-run
 # Author: aichargelabs
 
@@ -48,7 +48,12 @@ else
     asset_suffix=.AppImage
 fi
 
-requested_version=${CODECREW_VERSION-}
+# A CodeCrew terminal exports CODECREW_VERSION as the running app's version, so it
+# only pins the install outside one; CODECREW_INSTALL_VERSION pins anywhere.
+requested_version=${CODECREW_INSTALL_VERSION-}
+if [ -z "$requested_version" ] && [ "${CODECREW-}" != "1" ]; then
+    requested_version=${CODECREW_VERSION-}
+fi
 if [ -n "$requested_version" ]; then
     case "$requested_version" in
         v*) tag=$requested_version ;;

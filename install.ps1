@@ -1,6 +1,7 @@
 # CodeCrew Windows installer.
 # Usage: powershell -ExecutionPolicy Bypass -Command "irm https://codecrew.aichargelabs.com/install.ps1 | iex"
-# CODECREW_VERSION: optional version such as 1.0.0; installs tag v1.0.0.
+# CODECREW_INSTALL_VERSION: optional version such as 1.0.0; installs tag v1.0.0.
+# CODECREW_VERSION: same, honoured only outside a CodeCrew terminal (which exports the app's own version).
 # CODECREW_DRY_RUN: set to 1 to resolve and print the release without downloading.
 # Generated for aichargelabs/codecrew-releases. Author: aichargelabs.
 
@@ -12,7 +13,10 @@ function Install-CodeCrew {
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
         $headers = @{ 'User-Agent' = 'codecrew-installer' }
-        $requestedVersion = $env:CODECREW_VERSION
+        $requestedVersion = $env:CODECREW_INSTALL_VERSION
+        if ([string]::IsNullOrWhiteSpace($requestedVersion) -and $env:CODECREW -ne '1') {
+            $requestedVersion = $env:CODECREW_VERSION
+        }
 
         Write-Host 'Resolving CodeCrew release...'
         if ([string]::IsNullOrWhiteSpace($requestedVersion)) {
