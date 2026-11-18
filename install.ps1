@@ -82,13 +82,81 @@ function Install-CodeCrew {
         New-Item -ItemType Directory -Path $downloadDirectory -Force | Out-Null
         $installerPath = Join-Path $downloadDirectory $assetName
 
-        Write-Host ('Downloading CodeCrew ' + $version + '...')
-        Invoke-WebRequest -Uri $downloadUrl -Headers $headers -OutFile $installerPath -UseBasicParsing
-        if (-not (Test-Path -LiteralPath $installerPath -PathType Leaf)) {
-            throw ('Download did not create the installer at ' + $installerPath)
+        # A dropped connection can end Invoke-WebRequest early without an error, and NSIS
+        # then fails on the cut-off file with a bare exit code. Check the byte count against
+        # the release asset and the SHA-256 against SHA256SUMS.txt, and retry before giving up.
+        $expectedSize = [long]$asset.size
+        $expectedHash = $null
+        $sumsAsset = @($release.assets) | Where-Object { $_.name -ceq 'SHA256SUMS.txt' } | Select-Object -First 1
+        if ($null -ne $sumsAsset) {
+            try {
+                $sums = Invoke-WebRequest -Uri ([string]$sumsAsset.browser_download_url) -Headers $headers -UseBasicParsing
+                $sumsText = $sums.Content
+                if ($sumsText -is [byte[]]) { $sumsText = [Text.Encoding]::ASCII.GetString($sumsText) }
+                foreach ($line in ([string]$sumsText -split "`n")) {
+                    $parts = $line.Trim() -split '\s+'
+                    if ($parts.Count -ge 2 -and $parts[-1].TrimStart('*') -ceq $assetName) {
+                        $expectedHash = $parts[0].ToLowerInvariant()
+                        break
+                    }
+                }
+            }
+            catch {
+                Write-Host 'Checksum list not reachable; checking the file size only.'
+            }
         }
-        $fileSize = (Get-Item -LiteralPath $installerPath).Length
-        Write-Host ('Downloaded: ' + $fileSize + ' bytes')
+
+        $maxAttempts = 3
+        $downloadOk = $false
+        $problem = ''
+        for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+            if ($attempt -eq 1) {
+                Write-Host ('Downloading CodeCrew ' + $version + '...')
+            }
+            else {
+                Write-Host ('Retrying the download (' + $attempt + ' of ' + $maxAttempts + ')...')
+            }
+            Remove-Item -LiteralPath $installerPath -Force -ErrorAction SilentlyContinue
+            try {
+                Invoke-WebRequest -Uri $downloadUrl -Headers $headers -OutFile $installerPath -UseBasicParsing
+            }
+            catch {
+                $problem = 'the download stopped: ' + $_.Exception.Message
+                Write-Host ('Download attempt ' + $attempt + ' failed: ' + $problem)
+                continue
+            }
+            if (-not (Test-Path -LiteralPath $installerPath -PathType Leaf)) {
+                $problem = 'the download did not create the installer file'
+                continue
+            }
+            $fileSize = (Get-Item -LiteralPath $installerPath).Length
+            Write-Host ('Downloaded: ' + $fileSize + ' bytes')
+            if ($expectedSize -gt 0 -and $fileSize -ne $expectedSize) {
+                $problem = 'the download was cut off (' + $fileSize + ' of ' + $expectedSize + ' bytes)'
+                Write-Host ('Download attempt ' + $attempt + ': ' + $problem)
+                continue
+            }
+            if ($expectedHash) {
+                # .NET directly: Get-FileHash fails to load when PSModulePath is inherited from pwsh 7.
+                $sha = [Security.Cryptography.SHA256]::Create()
+                $stream = [IO.File]::OpenRead($installerPath)
+                try { $actualHash = -join ($sha.ComputeHash($stream) | ForEach-Object { $_.ToString('x2') }) }
+                finally { $stream.Dispose(); $sha.Dispose() }
+                if ($actualHash -ne $expectedHash) {
+                    $problem = 'the downloaded file does not match its published SHA-256'
+                    Write-Host ('Download attempt ' + $attempt + ': ' + $problem)
+                    continue
+                }
+                Write-Host 'Checksum OK.'
+            }
+            $downloadOk = $true
+            break
+        }
+        if (-not $downloadOk) {
+            Remove-Item -LiteralPath $installerPath -Force -ErrorAction SilentlyContinue
+            $installerPath = $null
+            throw ('Could not get a complete installer after ' + $maxAttempts + ' tries: ' + $problem + '. Check your internet connection and run the same line again.')
+        }
 
         Write-Host 'Installing CodeCrew...'
         $process = Start-Process -FilePath $installerPath -ArgumentList '/S' -Wait -PassThru
